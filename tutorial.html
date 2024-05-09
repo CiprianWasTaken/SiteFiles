@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flappy Bird</title>
+    <link rel="icon" type="image/x-icon" href="Icon/Pasare.png">
+    <meta name="description" content="Site de prezentare al jocului realizat in Unity, Flappy Bird">
+    <link rel="stylesheet" href="styletutorial.css">
+
+</head>
+
+<body style="background-image: url(Images/Background\ 3.gif);">
+    <nav class="navbar2">
+        <ul>
+            <li><img src="Icon/Flappy_Bird_icon.png" style="object-fit:contain; height:50px;"></li>
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="tutorial.html" class="active">Tutorial</a></li>
+            <li><a href="cod sursa.html">Cod Sursă</a></li>
+            <li><a href="Resurse.html">Resurse</a></li>
+            <li style="float:right"><a href="despre2.html">Despre noi</a></li>
+        </ul>
+    </nav>
+
+    <h1 style="margin-left: 35px; margin-right:35px; margin-top:70px; margin-bottom:0px; padding-top:10px; text-indent:35px;"
+        class="fonttitlu">Aplicatii folosite:</h1>
+    <div class="container" style="background-color:#544c4aba; margin-left:35px; margin-right:35px;">
+        <div class="gallery">
+            <a target="_blank" href="Icon/Unity Icon.png">
+                <img src="Icon/Unity Icon.png" alt="Unity Logo" style="width:230px; height:auto">
+            </a>
+            <div class="desc">Unity, pentru realizarea jocului</div>
+        </div>
+
+        <div class="gallery">
+            <a target="_blank" href="Icon/Visual Studio Logo.png">
+                <img src="Icon/Visual Studio Logo.png" alt="Visual Studio Logo" style="width:230px; height:auto">
+            </a>
+            <div class="desc">Visual Studio, pentru script-uri</div>
+        </div>
+
+        <div class="gallery">
+            <a target="_blank" href="Icon/Photoshop Icon.png">
+                <img src="Icon/Photoshop Icon.png" alt="Photoshop Logo" style="width:230px; height:auto">
+            </a>
+            <div class="desc">Photoshop, pentru grafica</div>
+        </div>
+    </div>
+
+    <h1 style="margin-left: 35px; margin-right:35px; margin-top:70px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:15%;"
+        class="fonttitlu">Ce este Unity?
+    </h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Unity este un game-engine lansat în anul 2005 cu ajutorul căruia se pot realiza atât jocuri 2D cât și 3D. Este
+        foarte întâlnit în această industrie, laolaltă cu alte game-engine-uri ca Unreal, întrucât ajută
+        game-developerii prin punerea la dispoziție a unor funcții de bază necesare în crearea oricărui joc. Unity este
+        folosit nu doar de firme mari pentru realizarea unor titluri cunoscute (Pokémon GO, Genshin Impact, Call of
+        Duty: Mobile) ci și de indie-developeri, fiind un mediu favorabil pentru începători, prin interfața sa grafică
+        cât și prin multitudinea de tutoriale ce se pot găsi pe internet. Câteva jocuri indie de succes realizate prin
+        Unity sunt Slime Rancher, Cuphead si Untitled Goose Game.</p>
+    <h1 style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:45%;"
+        class="fonttitlu">Ce este C# si programarea orientata pe obiecte?</h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Cele mai întâlnite limbaje de programare folosite în crearea jocurilor sunt C# și C++, cele doua fiind, într-o
+        oarecare măsură, similare. Scrierea scripturilor în Unity se face în C#, limbaj de programare orientată pe
+        obiecte. Astfel, C# are la bază utilizarea claselor și a obiectelor.</p>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Clasa reprezinta un sablon cu ajutorul caruia se creeaza obiectele. O clasa se poate asocia cu un tip de date,
+        iar obiectul, cu o variabila. Cu toate acestea, spre deosebire de un tip de date, o clasa poate contine mai
+        multe campuri de tip data si metode.</p>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Clasa reprezintă un șablon cu ajutorul căruia se creează obiectele. O clasă se poate asocia cu un tip de date,
+        iar obiectul, cu o variabilă. Cu toate acestea, spre deosebire de un tip de date, o clasă poate conține mai
+        multe câmpuri de tip dată și metode.<br> <span style="margin-left:35px;">Pe parcursul tutorialului vom folosi o
+            multitudine de metode din
+            clase predefinite, cele mai întâlnite fiind MonoBehaviour și GameObject.</span></p>
+    <h1 style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:25%;"
+        class="fonttitlu">Ce este GameObject?</h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        GameObject este o clasă predefinită în Unity întalnită la fiecare obiect creat, indiferent de scopul acestuia.
+        Pentru a particulariza un anumit obiect (exemplu: obiectul Player față de obiectul Fundal) îi atribuim acestuia
+        diverse componente. O componentă reprezintă, de fapt, un script ce conține, cel mai des, parametrii ușor de
+        modificat folosind interfața grafică, cu ajutorul cărora se poate controla comportamentul a diverse metode. De
+        asemenea, se poate crea propriul script și atașa unui obiect, ca și componentă.</p>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Mai multe obiecte constituie o scenă. Jocurile simple, precum cel pe care îl vom crea, folosesc o singură scenă,
+        în timp ce cele mai complexe (spre exemplu jocurile construite pe nivele) pot folosi mai multe.</p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:50px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:20%">
+        Crearea proiectului
+    </h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Deschidem Unity Hub, apăsăm pe New Project și selectăm șablonul numit 2D (Built-In Render Pipeline). Acest
+        șablon va pregăti un proiect gol, configurat pentru jocuri 2D. Ne asigurăm că numele și calea unde va fi creat
+        proiectul sunt corecte, iar apoi apăsăm Create project.</p>
+    <div class="container2">
+        <img src="Images/Poza 1.png" alt="Poza creare proiect" style="width:40%; height:auto; padding:30px;">
+        <img src="/Images/Poza 2.png" alt="Poza 2 creare proiect" style="width:40%; height:auto; padding:30px;">
+    </div>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:16%">
+        Interfata Unity:</h1>
+    <div class="container2">
+        <img src="Images/Poza 3.png" alt="Poza Interfata Unity" style="width:40%; height:auto; padding:30px;">
+    </div>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Pentru a ne familiariza cu workspace-ul, îl vom delimita in 4 zone:</p>
+    <ol class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px; line-height:140%">
+        <li style="margin-left:45px;">Game - ceea ce vede jucătorul <br><span style="margin-left:35px;">Scene -
+                fereastra în care developer-ul poate selecta, muta sau modifica orice GameObject (obiect)</span></li>
+        <li style="margin-left:45px;">Project - locul din care poți accesa fișierele folosite la joc, precum imagini,
+            scripturi, sunete etc. Se recomandă organizarea acestor fișiere în foldere. <br> <span
+                style="margin-left:35px;">Console - fereastra în care apar log messages, warnings și error
+                messages.</span></li>
+        <li style="margin-left:45px;">Hierarchy - ierarhia obiectelor din scena selectată (numită Flappy Bird în poză)
+        </li>
+        <li style="margin-left:45px;">Inspector - fereastra ce afișează toate componentele obiectului selectat din
+            ierarhie (in poză, este selectat obiectul Player), sau setările ce pot fi făcute la fișierele importate.
+        </li>
+    </ol>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        În cazul în care nu este deschisă vreuna dintre aceste ferestre, le putem gasi la Window > General de pe bara de
+        sus.
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:28%">
+        Importarea fișierelor (assets)
+    </h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        La început, avem nevoie doar de trei foldere, pentru imagini, sunete și font-uri, în care vom importa fișierele.
+        Cu toate acestea, este recomandat să creăm mai multe foldere, ca în imaginea de mai sus <br><span
+            style="margin-left:35px;">Pentru a crea foldere, apăsăm click dreapta în fereastra Project, apoi Create >
+            Folder.</span> <br> <span style="margin-left:35px;">Pentru a importa, putem trage ce dorim din browser-ul de
+            fișiere al calculatorului, în fereastra Project. O altă metodă este să apăsăm click dreapta în fereastra
+            Project, apoi Import New Asset...</span>
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:30%">
+        Setări pentru jocurile de tip pixel
+    </h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Datorită anumitor setări, imediat ce au fost importate imaginile, pot fi întâmpinate câteva probleme în ceea ce
+        privește aspectul lor. Astfel, după ce au fost trase din fereastra Project în Scene, pot arăta încețoșate, ori
+        deformate față de original, în fereastra Game. <br> <span style="margin-left:35px;">Pentru a nu mai arăta
+            șterse (blurate), selectăm toate imaginile și ne asigurăm că următoarele setări din ferestra Inspector sunt
+            făcute:</span>
+    </p>
+    <ul class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        <li style="margin-left: 35px; margin-right:35px;">Pixels per Unit = 24;</li>
+        <li style="margin-left: 35px; margin-right:35px;">Advanced > Filter Mode = Point (no filter);</li>
+        <li style="margin-left: 35px; margin-right:35px;">Advanced > Compression = None;</li>
+        <li style="margin-left: 35px; margin-right:35px;">Apply.</li>
+    </ul>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        În cazul în care observăm că unii pixeli din imagini par mai mari decât alții, acest lucru se datorează faptului
+        că imaginile de tip pixel art ar trebui scalate doar la numere întregi. Așadar, trebuie să ne asigurăm că
+        obiectele din ferestra Hierarchy au, în componenta Transform, parametrul Scale (X, Y si Z) numere întregi.
+    </p>
+    <p class="fonttext item"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Dacă problema persistă, atunci este nevoie să schimbăm rezoluția de la Game Viewer. Pentru acest joc, vom
+        adăuga o nouă rezoluție: Apăsăm pe bara de sus a ferestrei Game, pe butonul ce arată rația sau rezoluția
+        curentă (inițial, butonul afișeaza textul „Free Aspect”). Apoi, apăsăm pe butonul ,,+” și facem aceleași
+        setări ca în imagine:</p>
+    <div class="container2">
+        <img src="Images/Poza 4.png" alt="Poza rezolutie"
+            style="width:20%; padding:30px; background-color:#544c4aba; height:auto;">
+    </div>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px; margin-right:35px;">
+        Totodată, pentru
+        obiectul Main Camera, vom seta valoarea câmpului Size din componenta Camera la 5. Această
+        valoare reprezintă numărul de unități verticale vizibile în timpul jocului, împărțit la 2. <span>Având aceste
+            setări făcute, jocul nostru are o rezoluție de 1280 x 720 px, iar ecranul este împărțit în mai multe unități
+            (pătrate), din care 10 în înălțime. Astfel, o unitate are rezoluția de 72 x 72 px (720/10). Deoarece am
+            setat ca imaginile importate să aibe 24 px per unitate, are loc o scalare de 3 (72/24), ce acum este număr
+            întreg.</span>
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:26%">
+        Dividerea unui sprite sheet
+    </h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        În cazul în care
+        avem o imagine ce conține mai multe ipostaze ale unui obiect cu ajutorul cărora se va forma o
+        animație (sprite sheet), aceasta trebuie împărțită, încât să separăm fiecare sprite din ea. Pentru acest lucru
+        selectăm imaginea și facem setarea Sprite Mode = Multiple. Apoi, apăsăm pe butonul Sprite Editor.
+    </p>
+    <div class="container2">
+        <img src="Images/Poza 5.png" alt="3 sprite-uri cu pasarea" style="width:40%; height:auto; padding:30px;">
+    </div>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Apăsăm pe butonul
+        Slice de sus si, dividem imaginea în una dintre urmatoarele două modalități:
+    </p>
+
+    <div class="container" style="background-color:#544c4aba; margin-left:35px; margin-right:35px;">
+        <div class="gallery2">
+            <a target="_blank" href="Images/Poza 6.png">
+                <img src="Images/Poza 6.png" alt="Metoda 1" style="width:350px; height:auto;">
+            </a>
+            <div class="desc">Folosindu-ne de dimensiunile unei diviziuni.</div>
+        </div>
+        <div class="gallery2">
+            <a target="_blank" href="Images/Poza 7.png">
+                <img src="Images/Poza 7.png" alt="Metoda 2" style="width:350px; height:auto;">
+            </a>
+            <div class="desc">Folosindu-ne de numărul de diviziuni și de felul în care sunt plasate.</div>
+        </div>
+    </div>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Apoi apăsăm Slice
+        și butonul Apply de sus
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:15%">
+        Main Camera
+    </h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px;">
+        Main Camera este
+        denumirea unui obiect ce se crează automat, odată cu proiectul. Acesta prezintă componentele
+        Transform, Camera si Audio Listener. În mod implicit, culoarea de fundal a camerei este un albastru închis (și
+        este vizibilă în fereastra Game). <br> <span style="margin-left:35px;">Pentru jocul nostru, schimbăm culoarea
+            aleasă în parametrul
+            Background al componentei Camera și alegem una similară cu imaginea pentru fundalul jocului.</span>
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:15%">
+        Player
+    </h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px; line-height: 150%;">
+        Pentru obiectul
+        Player, tragem din fereastra Project în fereastra Scene unul dintre sprite-urile caracterului ce
+        reprezintă jucătorul. Acest lucru va rezulta în crearea unui obiect a cărui denumire va coincide cu cea a
+        sprite-lui ales, cu componentele Transform și Sprite Renderer.<br> <span style="margin-left:35px;">Redenumim
+            obiectul și selectăm din
+            inspector tagul Player pentru acest obiect, pentru a putea, ulterior, să facem in cod referire la
+            el.</span><br> <span style="margin-left:35px;">Apăsăm butonul Add Component, din Inspector, pentru a-i
+            adăuga următoarele
+            componente:</span> <br> <span style="margin-left:35px;">Rigidbody 2D - îi permite obiectului să acționeze
+            sub controlul fizicii și,
+            totodată, o poate simula.</span><br><span style="margin-left:35px;">Circle Collider 2D - definește zona din
+            obiect ce se poate ciocni
+            de alte obiecte.</span> <br> <span style="margin-left:35px;">Deoarece ne dorim ca acest obiect să simuleze
+            fizica printr-un set de
+            reguli ce le vom defini în cod, trebuie să setăm Rigidbody 2D > Body Type = Kinematic. Astfel, această
+            componentă nu va mai simula fizica pentru obiect.</span><br> <span style="margin-left:35px;">Următorul pas
+            este să ajustăm
+            collider-ul, astfel încât să fie de dimensiunea potrivită. Pentru acest lucru, încercăm să găsim valorile
+            potrivite pentru parametrii Radius si Offset, ai componentei Circle Collider 2D. Am găsit, astfel, valorile
+            potrivite din imaginea următoare.</span>
+    </p>
+    <div class="container2">
+        <img src="Images/Poza 8.png" alt="Poza Collider" style="width:40%; height:auto; padding:30px;">
+    </div>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px; line-height: 170%;">
+        Pentru simularea gravitației (printr-o mișcare doar pe axa verticală), vom crea un script și îl vom numi Player.
+        Astfel, în fereastra Project, deschidem folder-ul Scripts și apăsăm click dreapta, Create > C# Script. Apoi,
+        tragem scriptul din ferestra Project în fereastra Inpector, pentru a-l atribui obiectului Player. <br> <span
+            style="margin-left:35px;">În
+            acest script detectăm input-ul (click sau tasta spațiu), mișcăm corespunzător obiectul (dacă s-a detectat
+            input, poziția sa pe axa OY creste pe un interval de timp, altfel scade, deoarece se află în cădere) și
+            creăm animația (schimbăm conținutul parametrului Sprite din componenta Sprite Renderer, din 0.15 secunde în
+            0.15 secunde). </span> <br> <span style="margin-left:35px;">Pentru a avea acces ușor asupra valorilor
+            variabilelor importante folosite
+            în cod, le definim de tip public. Acest lucru le va face vizibile în interfața grafică din Unity. Pentru a
+            determina ce valori dăm unor parametrii, începem cu niște valori mici și apăsăm butonul de Play din partea
+            de sus a ecranului, pentru a emula jocul. Astfel, putem determina dacă mișcarea player-ului este una
+            potrivită sau nu. Dacă, spre exemplu, pasărea coboară prea încet, înseamnă că variabila gravitație ar trebui
+            să fie mai mare în modul. În acest mod am ajuns la urmatoarele valori: </span>
+    </p>
+    <div class="container2">
+        <img src="Images/Poza 9.png" alt="Poza Variabile Pasare" style="width:30%; height:auto; padding:30px;">
+    </div>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:17%">
+        Iluzia mișcării
+    </h1>
+    <p class="fonttext item"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px; line-height: 170%;">
+        În acest joc, mișcarea player-ului se face doar pe axa verticală, în timp ce fundalul, pământul și obstacolele
+        își schimbă poziția pe axa orizontală, creând iluzia că de fapt, jucătorul se deplasează în față. Cu toate
+        acestea, o simplă deplasare a fundalului și a celorlalte obiecte nu este îndeajuns, deoarece acesta are o
+        dimensiune finită, iar astfel ar dispărea complet din ecran. <br> <span style="margin-left:35px;">În acest sens,
+            va fi nevoie de un script
+            cu ajutorul căruia vom da impresia că obiectele se repetă la infinit.</span>
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:17%">
+        Background
+    </h1>
+    <p class="fonttext"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding:15px; text-indent:35px; line-height: 170%;">
+        Pentru scriptul ce îl vom crea, ne vom folosi de o proprietate a obiectelor de tip Quad. <br> <span
+            style="margin-left:35px;">Pentru a
+            crea un astfel de obiect, apăsăm click dreapta în fereastra Hierarcy, 3D Object > Quad. Faptul că este pus
+            în categoria de obiecte 3D se datorează utilizării sale, în special în jocurile 3D, însa el reprezintă, de
+            fapt, două triunghiuri în general coplanare, fiind un obiect 2D. Odată creat, îl redenumim Background.
+            Acesta va fi inițializat cu componentele Transform, Quad (Mesh Filter), Mesh Renderer si Mesh Collider.
+            Ștergem ultima componentă apăsând pe cele 3 puncte din dreapta componentei și apoi, pe Remove
+            Component.</span> <br> <span style="margin-left:35px;">Motivul din care folosim acest obiect îl reprezintă
+            componenta Mesh Renderer.
+            Spre deosebire de Sprite Renderer, aceasta utilizează materiale din care se formează texturi. Materialele
+            pot fi create și prezintă parametrul Offset, cu ajutorul căruia vom crea iluzia că fundalul/pământul se
+            mișcă, modificându-i valoarea în script.</span> <br> <span style="margin-left:35px;">Apoi creăm un material.
+            În fereastra Project,
+            deschidem folderul Materials și apăsăm click dreapta, Create > Material. Îl redenumim, setăm Shader =
+            Unlit/Texture și tragem sprite-ul corespunzător (fundalul) în chenarul din partea dreaptă a ferestrei
+            Inspector.</span> <br> <span style="margin-left:35px;">Deoarece sprite-ul original are rezoluția 144 x 256
+            px, acesta se va repeta de
+            mai multe ori, formând un pattern. Astfel, trebuie să îl selectăm și să facem setarea Advaced > Wrap Mode =
+            Repeat, apoi apăsăm Apply.</span> <br> <span style="margin-left:35px;">Selectăm obiectul creat și tragem
+            materialul în fereastra
+            inspector, pentru a-l atașa. În componenta Transform ne asigurăm că parametrul Position este încărcat numai
+            cu 0 și setăm valoarea parametrului Scale la X = 24, Y = 10.66667, Z = 0. Am ales aceste valori deoarece
+            ținem cont de rația dintre lățime și înălțime a imaginii inițiale (9:16), dar urmărim și ca zona vizibilă în
+            timpul jocului să fie complet ocupată, împreună cu niște margini. Decidem astfel ca sprite-ul sursă să se
+            repete de 4 ori (24=4*6, iar 6*16/9≈10.6667). Pentru acest lucru, schimbăm valoarea parametrului Tiling X =
+            4 din setările materialului.</span> <br> <span style="margin-left:35px;">Vom crea un script cu numele
+            Parallax pe care îl vom atașa
+            obiectului. Acest script va crește cu valoarea parametrului Offset al materialului folosit în mod constant,
+            cu o anumită viteză. Pentru a o modifica ușor, dacă este cazul, viteza, o declarăm ca variabilă de tip
+            public.</span>
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:10%">
+        Ground
+    </h1>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px;">Aceiași pași se
+        repetă și pentru obiectul Ground, cu următoarele excepții:</p>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        -Deoarece
+        înălțimea sprite-ului original al pământului este
+        considerabil mai mică decât cea a fundalului,
+        obiectul va trebui scalat diferit, pentru a-i menține rația (3:1). Setăm așadar, pentru componenta
+        Transform, valoarea parametrului Scale la X = 24, Y = 2 si Z = 0 (24=4*6, iar 6*1/3=2). Pentru a-l poziționa
+        în partea corectă a ecranului, setăm parametrul Position Y = -4.7. Totodată, o posibilă problemă o poate
+        reprezenta ca obiectul creat să fie în spatele obiectului Background. Pentru a o remedia, setăm parametrul
+        Position Z = -1. Acest lucru îl va plasa mai aproape de camera, apărând în fața altor obiecte. <br>
+        <span style="margin-left:35px;">-Redenumim obiectul și materialul Ground, în loc de
+            Background.</span> <br> <span style="margin-left:35px;">-Nu mai creăm un script nou, ci îl folosim pe
+            același. Totuși,
+            trebuie să ne asigurăm că atribuim scriptul
+            și acestui obiect. Deoarece pământul ar trebui să dea iluzia că este mai aproape de jucător decat fundalul,
+            urmărim ca viteza cu care acesta se mișcă să fie mai mare. Atfel, stabilim valorile 0.2 pentru viteza
+            fundalului si 0.7 pentru cea a pamantului.</span> <br> <span style="margin-left:35px;">-Spre deosebire de
+            Background, pe parcursul jocului va trebui
+            să determinăm dacă obiectul Player atinge
+            obiectul Ground, așadar va avea nevoie de componenta Box Collider 2D. Odată atasată, bifăm căsuța Is
+            Trigger.</span> <br> <span style="margin-left:35px;">-Atât obiectul Ground, cât și Pipes (ce urmează a fi
+            făcut)
+            reprezintă obstacole deoarece la atingerea
+            acestora se va declanșa sfârșitul jocului. Așadar, vom crea un tag numit Obstacle. Apăsăm pe numele tag-ului
+            curent al obiectului Ground, apoi Add Tag... Apăsăm pe +, scriem numele tag-ului și apoi Save (vezi poza).
+            Selectăm obiectul Ground și ne asigurăm că are tag-ul Obstacle.</span>
+    </p>
+    <div class="container2">
+        <img src="Images/Poza 10.png" alt="Poza Nume Tag" style="width:30%; height:auto; padding:30px;">
+    </div>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:10%">
+        Pipes
+    </h1>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Obiectul Pipes va avea două tipuri de interacțiuni cu obiectul Player: <br> <span style="margin-left:35px;">-
+            Dacă obiectul Player atinge tuburile, jocul o să se termine.</span> <br> <span style="margin-left:35px;">-
+            Dacă obiectul Player trece printre tuburi (deci atinge spațiul dintre ele),
+            scorul o să crească.</span> <br> <span style="margin-left:35px;">Așadar, Pipes va fi format din 3
+            obiecte:</span>
+    </p>
+    <div class="container2">
+        <img src="Images/Poza 11.png" alt="Poza Nume Tag" style="width:20%; height:auto; padding:30px;">
+        <img src="Images/Poza 12.png" alt="Poza Nume Tag" style="width:15%; height:auto; padding:30px;">
+    </div>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Începem prin a apăsa click dreapta în fereastra Hierarcy, apoi Create Empty. Vom obține astfel un obiect ce
+        conține doar componenta Transform. Setăm parametrul Position X = 0, Y = 0 și Z = 0. Redenumim obiectul Pipes.
+        Acest obiect va avea cele 3 obiecte menționate în tabel ca și copii. <br> <span style="margin-left:35px;">Mai
+            întâi tragem sprite-ul cu un
+            tub în ferestra Hierarcy, peste obiectul Pipes. Duplicăm obiectul creat apăsând click dreapta pe el, apoi
+            Duplicate. Redenumim cele două obiecte în Top și Bottom. Pentru a le poziționa corect, atribuim următoarele
+            valori pentru componenta Transform: </span>
+    </p>
+
+    <div class="container" style="background-color:#544c4aba; margin-left:35px; margin-right:35px;">
+        <div class="gallery3">
+            <a target="_blank" href="Images/Poza .png">
+                <img src="Images/Poza 13.png" alt="Coord 1" style="width:350px; height:auto;">
+            </a>
+            <div class="desc">Pentru obiectul Bottom</div>
+        </div>
+        <div class="gallery3">
+            <a target="_blank" href="Images/Poza 7.png">
+                <img src="Images/Poza 14.png" alt="Coord 2" style="width:350px; height:auto;">
+            </a>
+            <div class="desc">Pentru obiectul Top</div>
+        </div>
+    </div>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Apăsăm click dreapta pe obiectul Pipes și apoi Create Empty, pentru a crea obiectul Between ca și copil al
+        acestuia. Apoi adaugăm componenta box Collider 2D la fiecare dintre cele 3 obiecte, bifând căsuța Is Trigger.
+        Ajustăm dimensiunile collider-ului setând parametrul Size X = 0.36 și Y = 4. Selectăm cele 3 obiecte și le
+        atribuim tag-ul Obstacle.<br> <span style="margin-left:35px;">Obiectul Pipes va apărea de multe ori în joc, deci
+            va trebui clonat, așadar
+            se va face mai întâi un prefab (un șablon al unui obiect ce îl vom clona de mai multe ori). Pentru a-l
+            transforma într-un prefab, tragem obiectul în folder-ul Prefabs din fereastra Poject. Odată ce a fost creat
+            șablonul, putem șterge obiectul Pipes din ferestra Hierarcy, deoarece nu avem nevoie de el în scenă.</span>
+        <br> <span style="margin-left:35px;">Pentru a-l clona automat, vom crea un obiect gol, pozitionat la marginea
+            din dreapta a ecranului,
+            numit Spawner. Acesta va conține un script numit Pipes_Spawner responsabil cu crearea mai multor obiecte
+            Pipes în intervale de timp aleatorii, modificând de asemenea poziția pe axa OY, la întamplare, pentru a crea
+            diversitate.</span> <br> <span style="margin-left:35px;">De asemenea, vom crea un script cu numele Pipes ce
+            se va ocupa de mișcarea
+            unui tub de la poziția sa inițială spre stânga, cu o anumită viteză. Când clona va ieși total din ecran,
+            aceasta va fi distrusă. Acest script îl vom atribui prefab-ului Pipes.</span>
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:25%">
+        Canvas și EventSystem
+    </h1>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Obiectele Canvas și EventSystem sunt create in mod automat odată cu orice obiect de tip UI (User Interface)
+        precum un text sau un buton. Canvas cuprinde toate obiectele ce fac parte din UI, reprezentând spațiul în care
+        acestea sunt plasate. <br> <span style="margin-left:35px;">Pentru început, apăsăm în fereastra Hierarcy click
+            dreapta, UI > Legacy > Text.
+            Astfel se vor crea, doar de această dată, 3 obiecte: Canvas ce îl are ca și copil pe Text (Legacy) și
+            EventSystem. Redenumim obiectul Text în Score.</span><span style="margin-left:35px;">Canvas prezintă
+            componentele Rect Transform,
+            Canvas, Canvas Scaler și Graphic Raycaster. Pentru a ne asigura ca UI se adaptează cosrespunzător la
+            diferite dimensiuni ale ecranului, setăm, în componenta Canvas Scaler, UI Scale Mode = Scale With Screen
+            Size, Reference Resolution X = 1280, Y = 720 și Match = 1 (înălțimea va avea prioritate față de lățime la
+            scalare).</span> <br> <span style="margin-left:35px;">Poziționăm obiectul Score în zona dorită a ecranului.
+            Astfel facem următoarele setări:</span>
+    </p>
+    <div class="container2">
+        <img src="Images/Poza 15.png" alt="Rect Transform" style="width:25%; height:auto; padding:30px;">
+    </div>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Pentru a folosi propriul font, îl tragem din fereastra Project în parametrul Font al componentei Text. În
+        aceeași componentă, setăm Text = „0”, Font Size = 100, alegem să centrăm textul (în parametrul
+        Alignment), și selectăm culoarea dorită.<br>
+        <span style="margin-left:35px;"> Pentru a îmbunătăți aspectul adăugăm componenta Outline și selectăm o culoare
+            mai închisă.</span> <br> <span style="margin-left:35px;">În mod similar, creăm butoanele BGButton și
+            FXButton și le poziționăm în felul următor:</span>
+    </p>
+    <div class="container2" style="background-color:#544c4aba; margin-left:35px; margin-right:35px;">
+        <div class="gallery4">
+            <a target="_blank" href="Images/Poza .png">
+                <img src="Images/Poza 16.png" alt="BG Button" style="width:400px; height:auto;">
+            </a>
+            <div class="desc">BG Button</div>
+        </div>
+        <div class="gallery4">
+            <a target="_blank" href="Images/Poza 7.png">
+                <img src="Images/Poza 17.png" alt="FX Button" style="width:400px; height:auto;">
+            </a>
+            <div class="desc">FX BUTTON</div>
+        </div>
+    </div>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Spre deosebire de butonul de play, aceste butoane au rolul de a activa/dezactiva sunetul. Așadar, va fi nevoie
+        de
+        un script pe care îl numim Button pentru a schimba sprite-ul butonului în funcție de starea sa. În acest script
+        vom avea nevoie de o referință la sprite-urile folosite și vom defini o metodă numită Next Sprite. Atribuim
+        scriptul celor două obiecte (BGButton și FXButton) și, de asemenea, sprite-urile potrivite în vectorul de
+        sprite-uri al script-ului, în fereastra Inspector. Apoi apăsăm pe „+” în secțiunea On Click () din componenta
+        Button, tragem obiectul selectat în casuța de referință creată și alegem funcția Next Sprite. Astfel, de fiecare
+        dată când se va apăsa pe buton, va fi apelată metoda aleasă.
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:15%">
+        GameManager</h1>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Acest obiect se ocupă în special cu logica jocului, legând diverse obiecte între ele prin funcționalități.
+        Astfel, va conține un script, pe care îl vom numi GameManager, responsabil de afișarea elementelor de UI în
+        momentele potrivite, de calcularea și updatarea scorului, de înghețarea obiectului Player dupa ce lovește un
+        obstacol și de distrugerea obiectelor Pipes în momentul în care se apasă butonul de play. Deoarece acest script
+        va utiliza referințe la mai multe obiecte (Player și toți copiii obiectului Canvas), ne asigurăm că atribuim
+        obiectele respective în componenta script-ului din fereastra Inspector.
+    </p>
+    <div class="container2" style="padding:30px;">
+        <img src="Images/Poza 18.png" alt="GameManager Script" style="width:30%; height:auto;">
+    </div>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Următorul pas îl reprezintă să legăm metodele scrise în script de acțiuni precum apăsarea unui buton. Dorim ca
+        metoda Play definita în scriptul creat să fie apelată de fiecare dată când apăsăm pe obiectul PlayButton. Pentru
+        acest lucru, selectăm obiectul, și apăsăm pe „+” în secțiunea On Click () din componenta Button. Tragem obiectul
+        GameManager în căsuța de referință creată și selectăm funcția pe care vrem să o apelăm când butonul este apăsat,
+        ca în imaginea următoare:
+    </p>
+    <div class="container2" style="padding:30px;">
+        <img src="Images/Poza 19.png" alt="GameManager Script" style="width:30%; height:auto;">
+    </div>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:15%">
+        AudioManager</h1>
+    <div class="container4" style="margin-left:35px; margin-right:35px; background-color:#544c4aba;">
+        <img src="Images/Poza 20.png" alt="GameManager Script" style="width:15%; height:auto;">
+        <p
+            style="font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+            color: aliceblue;
+            font-size: large;
+            font-weight: 600;text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px; width:60%;">
+            Similar cu GameManager, obiectul AudioManager are rolul de a lega elementele jocului cu sunete prin diverse
+            functionalități. Așadar, creăm un obiect gol și îi atribuim un script pe care îl numim AudioManager. În
+            acest
+            script definim metodele Play, MuteUnmute, MuteUnmuteExcept („nume sunet”) și o listă de sunete cu diverse
+            proprietăți. Pentu această listă, vom defini clasa Sound. Asadar, creăm un nou script pe care nu trebuie să
+            îl
+            atașăm vreunui obiect. În scriptul Sound vom defini proprietățile unui sunet, precum numele, volumul și dacă
+            se
+            va repeta la infinit sau nu, făcând referire și la fișierul audio respectiv. Încărcăm vectorul de sunete cu
+            datele necesare, ca în poza următoare:
+        </p>
+    </div>
+    <p class="fonttext"
+        style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        Pentru a face un sunet să se audă trebuie să existe un GameObject ce conține componenta AudioSource împreună cu
+        setările dorite, precum cele definite în clasa Sound. Astfel, scriptul AudioManager va crea această componentă
+        pentru cate un sunet din lista definită și o va atribui obiectului AudioManager. <br> <span
+            style="margin-left:35px;">Următorul pas îl
+            reprezintă să legăm metodele definite în script de fiecare obiect ce va produce un sunet. Pentru obiectul
+            Player, modificăm scriptul acestuia, astfel încât atunci când se detectează input să apelăm funcția
+            Play(„Flap”), iar când detectează o coliziune cu un obiect cu tagul Obstacle să apeleze funcția
+            Play(Obstacle). Pentru butoane, adăugăm un nou eveniment în secțiunea On Click(). Atașăm obiectul
+            AudioManager, apelăm funcția Play(„Play”) pentru PlayButton și Play(„Mute”) pentru celelalte butoane,
+            reprezentând sunetul ce se va auzi când apăsăm pe ele. Pentru a face posibilă funcționalitatea ultimelor
+            butoane, apelăm MuteUnmute(„Theme”) la BGButton și MuteUnmuteExcept(„Theme”) la FXButton. De asemenea, în
+            scriptul AudioManager ne asigurăm că apelăm Play(„Theme”) la începutul jocului.</span>
+    </p>
+    <h1 class="fonttitlu"
+        style="margin-left: 35px; margin-right:35px; margin-top:0px; margin-bottom:0px; padding-top:10px;padding-bottom:10px; text-indent:35px; width:20%">
+        Îmbunătățiri (Fixes)
+    </h1>
+    <p class="fonttext"
+    style="margin-left:35px; margin-right:35px; text-indent:35px;margin-bottom:0px; margin-top:0px; line-height: 170%; padding:15px">
+        O problemă întâlnită în acest punct o reprezintă faptul că atunci când jucătorul apasă de mai multe ori click
+        sau tasta spațiu, rapid, sunetul va fi întrerupt deoarece se apelează funcția Play(„Flap”) în mod repetat și
+        într-un timp foarte scurt. Pentru a combate acestă problemă putem adăuga două variabile: cooldownSound și timer
+        în scriptul Player. Acestea au rolul de a permite apelarea funcției Play(„Flap”) numai după un timp fix de la
+        ultima apelare.
+    </p>
+</body>
+
+</html>

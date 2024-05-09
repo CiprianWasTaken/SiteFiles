@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flappy Bird</title>
+    <link rel="icon" type="image/x-icon" href="Icon/Pasare.png">
+    <meta name="description" content="Site de prezentare al jocului realizat in Unity, Flappy Bird">
+    <link rel="stylesheet" href="style cod sursa.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <nav class="navbar2">
+        <ul>
+            <li><img src="Icon/Flappy_Bird_icon.png" style="object-fit:contain; height:50px;"></li>
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="tutorial.html">Tutorial</a></li>
+            <li><a href="cod sursa.html" class="active">Cod Sursă</a></li>
+            <li><a href="Resurse.html">Resurse</a></li>
+            <li style="float:right"><a href="despre2.html">Despre noi</a></li>
+        </ul>
+
+    </nav>
+
+    <div>
+        <script>
+            function toggleText1() {
+                var text = document.getElementById("item1");
+                if (text.style.display === "none") {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+        </script> 
+        <button style="margin-top:90px; margin-left:35px;" onclick="toggleText1()" class="button-82-pushable"
+            role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text fonttitlu">
+                Script Player
+            </span>
+        </button>
+        <p style="display: none; margin-right:35px;">
+        <pre style="white-space: pre-wrap;">
+                <code id='item1' style="background-color:#012339ca; color:white; display:none; font-size:150%;">
+        using System.Collections;
+        using System.Collections.Generic;
+        using System.Security.Principal;
+        using UnityEngine;
+        using static UnityEngine.RuleTile.TilingRuleOutput;
+                    
+        public class Player : MonoBehaviour
+        {
+            private SpriteRenderer spriterenderer;  // Obiect(componenta) de tip SpriteRenderer
+            public Sprite[] sprites;                // Vector de sprite-uri
+            private int spriteIndex;
+                    
+            private Vector3 direction;  // Vector cu campurile x, y si z
+            public float gravity = -9f;
+            public float strength = 5f;
+                    
+            //  Pentru sunet
+            private float timer;
+            public float cooldownSound = 0.3f;
+                    
+            // Metoda Awake este apelata o singura data, cand un script este incarcat (indiferent de starea acestuia: enabled/disabled)
+            private void Awake()
+            {
+                spriterenderer = GetComponent&lt;SpriteRenderer&gt;();    // Incarcam obiectul spriterenderer
+                timer = cooldownSound;      // Incarcam timer cu valoarea retinuta in cooldownSound ci nu cu 0
+                                            // pentru a indeplini conditia timer &gt;= cooldownSound inca de la inceput
+            }
+                    
+            // Metoda Start este apelata o singura data, dupa metoda Awake si imediat inainte de metoda Update, doar daca scriptul este activ (enabled)
+            private void Start()
+            {
+                            InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);   //  Apelam metoda AnimateSprite din 0.15 in 0.15 secunde
+            }
+                    
+                    
+            // Pentru dupa ce apasam Play
+            private void OnEnable()
+            {
+                // Resetam pozitia si directia obiectului Player
+                    
+                // Initializam cu 0 variabila position.y (a componentei transform)
+                //transform.position.y = 0f;    Da eroare de compilare
+                    
+                //  Varianta 1 - cu variabila auxiliara
+                /*
+                Vector3 position = transform.position;  // Declaram o variabila locala de tip Vector3 si o incarcam cu datele din campul position al componentei transform
+                position.y = 0f;                        // Incarcam cu 0 campul y al variabilei position
+                transform.position = position;          // Campul position al componentei transform se incarca cu datele retinute in variabila position
+                */
+                //  Varianta 2
+                transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+                    
+                direction = Vector3.zero;    // variabila direction e incarcata cu (0, 0, 0)
+            }
+                    
+                    
+            // Metoda Update este apelata o data la fiecare frame
+            private void Update()
+            {
+                            
+                timer += Time.deltaTime;    // incarcarea variabilei timer
+                                            // Time.deltaTime reprezinta intervalul de timp (in secunde) de la ultimul frame la cel curent
+                    
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) // Daca detectam input (tasta spatiu sau click stanga)
+                {
+                    // Varianta 1
+                    //direction.y = strength;           // Deoarece nu modificam nicaieri direction.x si direction.z,
+                                                        // acestea vor ramane incarcate cu 0 inca din metoda OnEnable.
+                                                        // Astfel, e indeajuns sa incarcam doar direction.y cu valoarea din strength.
+                    // Varianta 2
+                    direction = Vector3.up * strength;  // Vector3.up e de forma (0, 1, 0), deci variabila direction va fi incarcata cu (0, strength, 0)
+                                
+                    if (timer &gt;= cooldownSound)          // Daca timer-ul a ajuns la valoarea din cooldownSound
+                    {
+                        FindObjectOfType&lt;AudioManager&gt;().Play(&quot;Flap&quot;);  // Apelam metoda Play(&quot;Flap&quot;)  din obiectul AudioManager
+                        timer = 0f;                                     // Resetam timer-ul
+                    }
+                }
+                    
+                direction.y += gravity * Time.deltaTime;                // Deoarece gravity va avea o valoare negativa, direction.y va scadea
+                transform.position += direction * Time.deltaTime;       // Adunam la campul position din componenta transform valoarea din variabila direction
+                                                                        // Aici are loc miscarea efectiva
+            }
+                        
+                    
+            private void AnimateSprite()
+            {
+                spriteIndex++;  // Indexul creste
+                if (spriteIndex &gt;= sprites.Length)  // Daca a ajuns la final (indexarea incepe de la 0)
+                {
+                    spriteIndex = 0;                // Se reseteaza indexul
+                }
+                    
+                spriterenderer.sprite = sprites[spriteIndex];   // Aici are loc schimbarea sprite-lui 
+            }
+                    
+            // Aceasta metoda este apelata cand un alt obiect (ce prezinta componenta Collider2D) declanseaza un trigger (la coliziunea dintre ele)
+            private void OnTriggerEnter2D(Collider2D other)     
+            {
+                if(other.gameObject.tag == &quot;Obstacle&quot;)      // Daca am lovit un obstacol
+                {
+                    //Aceasta metoda afecteaza performanta daca e folosita des (precum o data la fiecare frame), dar aici nu e cazul
+                     FindObjectOfType&lt;AudioManager&gt;().Play(&quot;Obstacle&quot;);  // Apelam metoda Play(&quot;Obstacle&quot;)  din obiectul AudioManager
+                    FindObjectOfType&lt;GameManager&gt;().GameOver();         // Apelam metoda GameOver()        din obiectul GameManager
+                }
+                else
+                    if(other.gameObject.tag == &quot;Scoring&quot;)   // Daca am trecut prin spatiul gol dintre tuburi
+                    {
+                        FindObjectOfType&lt;GameManager&gt;().IncreaseScore();// Apelam metoda IncreaseScore()    din obiectul GameManager
+                }
+            }
+                    
+        }
+                </code>
+            </pre>
+
+        </p>
+    </div>
+
+    <div>
+        <script>
+            function toggleText2() {
+                var text = document.getElementById("item2");
+                if (text.style.display === "none") {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+        </script>
+        <button style="margin-left:35px;" onclick="toggleText2()" class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text fonttitlu">
+                Script Parallax
+            </span>
+        </button>
+        <p style="display: none;">
+        <pre>
+                <code  id='item2' style="background-color:#012339ca; color:white; display:none; font-size:150%; ">
+        using System.Collections;
+        using System.Collections.Generic;
+        using UnityEngine;
+                    
+        public class Parallax : MonoBehaviour
+        {
+            private MeshRenderer meshRenderer;  // Obiect(componenta) de tip MeshRenderer
+                public float animationSpeed = 0.2f;
+                    
+                    
+                void Awake()
+                {
+                    meshRenderer = GetComponent&lt;MeshRenderer&gt;();    // Incarcam obiectul meshRenderer
+                }
+                    
+                void Update()
+                {
+                    meshRenderer.material.mainTextureOffset += new Vector2(animationSpeed * Time.deltaTime, 0); // Modificam variabila mainTextureOffset
+                                                                                                                // (doar pe x, y ramane 0) ce tine de materialul
+                                                                                                                // obiectului meshRenderer
+                }
+            }   
+                </code>
+            </pre>
+
+        </p>
+
+    </div>
+
+    <div>
+        <script>
+            function toggleText3() {
+                var text = document.getElementById("item3");
+                if (text.style.display === "none") {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+        </script>
+        <button style="margin-left:35px;" onclick="toggleText3()" class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text fonttitlu">
+                Script Pipes
+            </span>
+        </button>
+        <pre style="white-space: pre-wrap;">
+            <code id='item3' style="background-color:#012339ca; color:white; display:none; word-wrap:break-word; font-size:150%;">
+        using System.Collections;
+        using System.Collections.Generic;
+        using UnityEngine;
+                        
+        public class Pipes : MonoBehaviour
+        {
+            public float speed = 5f;    //  Viteza cu care se misca obiectul
+            private float leftEdge;     //  Pozitia (pe axa OX) marginii din stanga a ecranului
+                                        //  Aceasta trebuie calculata, intrucat difera in functie de dimensiunea ecranului
+                        
+            private void Start()
+                    {
+                //  Camera.main.ScreenToWorldPoint()                converteste spatiul ecranului in spatiul lumii (sistemul de coordonate)
+                //  Camera.main.ScreenToWorldPoint(Vector3.zero).x  returneaza coordonata X unde se afla marginea din stanga a ecranului
+                leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x - 1f; //  se scade 1 pentru a iesi complet din ecran;
+                                                                                        //  altfel, s-ar vedea cum dispare obiectul, de-alungul jocului
+            }
+                        
+            private void Update()
+            {
+                transform.position += Vector3.left * speed * Time.deltaTime;    //  Miscarea obiectlui
+                                                                                        //  Vector3.left e de forma (-1, 0, 0)
+                        
+                if (transform.position.x &lt; leftEdge)
+                {
+                    Destroy(gameObject);    //  Cand obiectul iese din ecran, se sterge
+                }
+            }
+        }    
+            </code>
+        </pre>
+
+    </div>
+    <div>
+        <script>
+            function toggleText4() {
+                var text = document.getElementById("item4");
+                if (text.style.display === "none") {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+        </script>
+        <button style="margin-left:35px;" onclick="toggleText4()" class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text fonttitlu">
+                Script Pipes Spawner
+            </span>
+        </button>
+        <pre style="white-space: pre-wrap;">
+            <code id='item4' style="background-color:#012339ca; color:white; display:none; word-wrap:break-word; font-size:150%;">
+        using System.Collections;
+        using System.Collections.Generic;
+        using UnityEngine;
+
+        public class Pipes_Spawner : MonoBehaviour
+        {
+        public GameObject prefab;       //  Referinta la obiectul prefab
+        public float minspawnRate = 1f;
+        public float maxspawnRate = 2f;
+        private float spawnRate;
+
+        public float minHeight = -1f;
+        public float maxHeight = 1f;
+
+        //  Dupa ce se apasa Play, scriptul va fi enabled
+        private void OnEnable()
+        {
+            Invoke(nameof(Spawn), minspawnRate);    // Apelam o data metoda Spawn (ce apoi se va autoapela singura)
+        }
+
+        //  Cand e Game Over, scriptul va fi disabled
+        private void OnDisable()    
+        {
+            CancelInvoke(nameof(Spawn));    // Ne oprim din a mai apela metoda Spawn
+        }
+
+        private void Spawn()
+        {
+            GameObject pipes = Instantiate(prefab, transform.position, Quaternion.identity);    // Instantiate este o metoda folosita pentru a crea o clona a unui obiect
+                                                                                                // Quaternion.identity insemna fara rotatie
+        
+            pipes.transform.position += Vector3.up * Random.Range(minHeight, maxHeight);        // Modificam pozitia clonei pe axa OY adunand la aceasta
+                                                                                                // un numar aleatoriu aflat in intervalul [minHeight, maxHeight]
+
+            spawnRate = Random.Range(minspawnRate, maxspawnRate);   // Variabila spawnRate se incarca cu un numar aleatoriu aflat in intervalul [minspawnRate, maxspawnRate]
+            Invoke(nameof(Spawn), spawnRate);                       // Apeleza metoda Spawn dupa spawnRate secunde
+        }
+    }
+            </code>
+        </pre>
+        
+    </div>
+    <div>
+        <script>
+            function toggleText5() {
+                var text = document.getElementById("item5");
+                if (text.style.display === "none") {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+        </script>
+        <button style="margin-left:35px;" onclick="toggleText5()" class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text fonttitlu">
+                Script Button
+            </span>
+        </button>
+        <pre style="white-space: pre-wrap;">
+            <code id='item5' style="background-color:#012339ca; color:white; display:none; word-wrap:break-word; font-size:150%;">
+        using System.Collections;
+        using System.Collections.Generic;
+        using UnityEngine;
+        using UnityEngine.UI;
+                
+        public class Button : MonoBehaviour
+        {
+            private Image im;           // Obiect(componenta) de tip Image
+            public Sprite[] sprites;    // Vector de sprite-uri
+            private int spriteIndex;
+                
+            private void Awake()
+            {
+                im = GetComponent&lt;Image&gt;();     // Incarcam obiectul im
+            }
+                
+            public void NextSprite()
+            {
+                spriteIndex++;  // Indexul creste
+                if (spriteIndex &gt;= sprites.Length)  // Daca a ajuns la final (indexarea incepe de la 0)
+                {
+                    spriteIndex = 0;                // Se reseteaza indexul
+                }
+                
+                im.sprite = sprites[spriteIndex];   // Aici are loc schimbarea sprite-ului componentei de tip Image
+            }
+        }
+            </code>
+        </pre>
+        
+    </div>
+    <div>
+        <script>
+            function toggleText6() {
+                var text = document.getElementById("item6");
+                if (text.style.display === "none") {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+        </script>
+        <button style="margin-left:35px;" onclick="toggleText6()" class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text fonttitlu">
+                Script GameManager
+            </span>
+        </button>
+        <pre style="white-space: pre-wrap;">
+            <code id='item6' style="background-color:#012339ca; color:white; display:none; word-wrap:break-word; font-size:150%;">
+        using System.Collections;
+        using System.Collections.Generic;
+        using UnityEngine;
+        using UnityEngine.UI;
+                
+        public class GameManager : MonoBehaviour
+        {
+            // Definim obiectele necesare
+            public Player player;
+                
+            public Text scoreText;
+            public GameObject playButton;
+            public GameObject gameOver;
+            public GameObject BGButton;
+            public GameObject FXButton;
+                
+            // Incarcarea acestor obiecte cu date va avea loc in interfata grafica din Unity
+                
+            private int score;
+                
+                
+            private void Awake()
+            {
+                Application.targetFrameRate = 60;   // Specificam care este FrameRate-ul dorit
+                
+                Pause();                            // Apelam metoda Pause
+            }
+                
+                    
+            public void Play()
+            {
+                score = 0;                          // Resetam scorul
+                scoreText.text = score.ToString();  // score.ToString() conversteste variabila score (de tip int) intr-un sir de caractere (string)
+                                                    // Updatam obiectul scoreText incarcand variabila text cu sirul rezultat
+                
+                // Distrugem toate obiectele de tip Pipes
+                Pipes[] pipes = FindObjectsOfType&lt;Pipes&gt;();     // Gasim toate obiectele de tip Pipes si le punem intr-un vector
+                for (int i = 0; i &lt; pipes.Length; i++)
+                {
+                    Destroy(pipes[i].gameObject); // Distrugem toate obiectele de tip Pipes puse in vector
+                }
+                
+                // Dispare meniul (UI)
+                gameOver.SetActive(false);
+                playButton.SetActive(false);
+                BGButton.SetActive(false);
+                FXButton.SetActive(false);
+                
+                Time.timeScale = 1f;        // Cand timeScale are valoarea 1, timpul trece la fel de rapid ca in realitate
+                                            // Daca, spre exemplu, timeScale are valoarea 0.5, atunci timpul ar trece de doua ori mai incet decat in realitate
+                player.enabled = true;      // Activam obiectul player
+            }
+                
+                
+            public void Pause()
+            {
+                Time.timeScale = 0f;    // Inghetam timpul
+                                        // Time.deltaTime va returna valoarea 0 in toate scripturile
+                                        // Astfel, tot ce am inmultit cu Time.deltaTime va ramane neschimbat din acest moment
+                player.enabled = false; // Dezactivam obiectul player
+            }
+                
+                
+            public void GameOver()
+            {
+                // Apare meniul (UI)
+                gameOver.SetActive(true);
+                playButton.SetActive(true);
+                BGButton.SetActive(true);
+                FXButton.SetActive(true);
+                
+                Pause();                // Apelam metoda Pause
+            }
+            public void IncreaseScore()
+            {
+                score++;                            // scorul creste
+                scoreText.text = score.ToString();  // Updatam obiectul scoreText incarcand variabila text cu sirul rezultat
+                                                    // (din convertirea valorii variabilei score)
+            }
+        }
+            </code>
+        </pre>
+        
+    </div>
+    <div>
+        <script>
+            function toggleText7() {
+                var text = document.getElementById("item7");
+                if (text.style.display === "none") {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+        </script>
+        <button style="margin-left:35px;" onclick="toggleText7()" class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text fonttitlu">
+                Script Sound
+            </span>
+        </button>
+        <pre style="white-space: pre-wrap;">
+            <code id='item7' style="background-color:#012339ca; color:white; display:none; word-wrap:break-word; font-size:150%;">
+        using UnityEngine;
+        using UnityEngine.Audio;
+        using System;
+                
+        [System.Serializable]   // Atribut aplicat clasei Sound pentru a permite serializarea acesteia de catre Unity
+        public class Sound
+        {
+            public string name;
+                
+            public AudioClip clip;
+                
+            [Range(0f, 1f)]     // Atribut aplicat unei variabile pentru ca valoarea sa sa fie limitata la un interval (in acest caz, (0, 1))
+            public float volume;
+            [Range(.1f, 3f)]    // Atribut aplicat unei variabile pentru ca valoarea sa sa fie limitata la un interval (in acest caz, (0.1, 3))
+            public float pitch;
+                
+            public bool loop;
+                
+            [HideInInspector]   // Desi este o variabila publica, aceasta nu va fi vizibila in fereastra Inspector
+            public AudioSource source;
+                
+        }
+            </code>
+        </pre>
+        
+    </div>
+    <div>
+        <script>
+            function toggleText8() {
+                var text = document.getElementById("item8");
+                if (text.style.display === "none") {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+        </script>
+        <button style="margin-left:35px;" onclick="toggleText8()" class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text fonttitlu">
+                Script Audio Manager
+            </span>
+        </button>
+        <pre style="white-space: pre-wrap;">
+            <code id='item8' style="background-color:#012339ca; color:white; display:none; word-wrap:break-word; font-size:150%;">
+        using System;
+        using UnityEngine;
+        using UnityEngine.Audio;
+                
+        public class AudioManager : MonoBehaviour
+        {
+            public Sound[] sounds;              // Vector de sunete
+                
+            private void Awake()
+            {
+                foreach (Sound s in sounds)     // Pentru fiecare sunet din vector
+                {
+                    s.source = gameObject.AddComponent&lt;AudioSource&gt;();  // Adauga o componenta din clasa AudioSource acestui gameObject (AudioManager)
+                                                                                // si o retinem in s.source
+                
+                    // Modificam setarile lui s.source (s.source = componenta din clasa AudioSource) 
+                    // astfel incat sa fie identice cu cele ale lui s (s = obiect din clasa Sound)
+                     s.source.clip = s.clip;
+                
+                    s.source.volume = s.volume;
+                    s.source.pitch = s.pitch;
+                    s.source.loop = s.loop;
+                
+                }
+            }
+                
+                
+            public void Play(string name)
+            {
+                Sound s = Array.Find(sounds, sound =&gt; sound.name == name);  // Gaseste si incarca in obiectul s, obiectul din vectorul de sunete cu numele name
+                s.source.Play();    // Metoda Play apelata aici tine de clasa AudioSource (ci nu este metoda definita de noi)
+            }
+                
+            public void MuteUnmute(string name)
+            {
+                Sound s = Array.Find(sounds, sound =&gt; sound.name == name);
+                if (s.source.mute == false) // Daca variabila mute este falsa (sunetul retinut in source se aude)
+                {
+                    s.source.mute = true;   // Variabila mute devine adevarata (sunetul nu se mai aude)
+                }
+                else
+                {
+                    s.source.mute = false;  // Variabila mute devine falsa (sunetul se aude)
+                }
+            }
+                
+            public void MuteUnmuteExcept(string name)
+            {
+                Sound s = Array.Find(sounds, sound =&gt; sound.name == name);
+                
+                        
+                foreach (Sound s1 in sounds)
+                {
+                    if(s1 != s)     // Daca obiectul retinut in s1 e diferit de cel retinut in s
+                        MuteUnmute(s1.name);    // Apelam metoda MuteUnmute(s1.name)
+                }
+                /*
+                    Astfel, pentru orice sunet din vectorul de sunete, diferit de s (cel pentru care apelam aceasta metoda),
+                    valoarea variabilei mute a sursei corespunzatoare va fi inversata.
+                */
+            }
+                
+            void Start()
+            {
+                Play(&quot;Theme&quot;);  // Apelam metoda Play(&quot;Theme&quot;)
+            }
+        }
+            </code>
+        </pre>
+        
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+</body>
+
+</html>
